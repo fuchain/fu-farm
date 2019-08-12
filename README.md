@@ -1,29 +1,29 @@
-# fufarm
+# Librarian Module Web App
 
-## Project setup
+A webapp for scaffolding Librarian Module by Vue.
+
+# Installation
+
+You can choose Docker or Node.js to install this repo.
+
+## Docker
+
+Use docker compose:
+
+```
+docker-compose up
+```
+
+## Node.js
+
+Prerequisites: Node.js (>=6.x, 10.x preferred), npm version 3+ and Git.
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+Start serve with daemon:
+
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
