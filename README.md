@@ -1,6 +1,6 @@
-# Librarian Module Web App
+# Farm Module Web App
 
-A webapp for scaffolding Librarian Module by Vue.
+A webapp for scaffolding FUChain Farm Module by Vue.
 
 # Installation
 
