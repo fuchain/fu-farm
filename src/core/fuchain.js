@@ -42,7 +42,7 @@ class FUChain {
     return new Promise((resolve, reject) => {
       // Create asset object.
       const assetData = {
-        type: "FtfTutorialAsset",
+        type: "FuChainFarmAsset",
         item: foodItem
       };
 
@@ -110,14 +110,14 @@ class FUChain {
   }
 
   /**
-   * Get a list of all assets that belong to our POC. (they contain the string 'FtfTutorialAsset)
+   * Get a list of all assets that belong to our POC. (they contain the string 'FuChainFarmAsset)
    *
    * @returns {Array} The array of all assets that belong to our POC.
    */
   getAllAssets() {
     return new Promise((resolve, reject) => {
       this.connection
-        .searchAssets("FtfTutorialAsset")
+        .searchAssets("FuChainFarmAsset")
         .then(response => {
           resolve(response);
         })
