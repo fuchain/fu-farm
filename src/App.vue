@@ -29,6 +29,10 @@
           <div class="ftf-menu-item-link">Tất cả hàng</div>
         </div>
 
+        <div class="ftf-menu-item" v-on:click="menuClicked('qrscan')">
+          <div class="ftf-menu-item-link">Quét mã QR</div>
+        </div>
+
         <div class="ftf-menu-item" v-on:click="logout()" v-if="isLoggedIn">
           <div class="ftf-menu-item-link">Đăng xuất</div>
         </div>
@@ -156,6 +160,12 @@
           </span>
         </div>
 
+        <div v-if="isActive('qrscan')" class="ftf-content-pane">
+          <div class="ftf-box" v-if="!error">
+            <QRScan @printCode="notify" @onFail="handleFail" />
+          </div>
+        </div>
+
         <div v-if="isActive('all-assets')" class="ftf-content-pane">
           <div class="ftf-box">
             <h2>Hàng hóa trong chuỗi cung ứng</h2>
@@ -194,11 +204,16 @@
 
 <script>
 import FUChain from "@/core/fuchain";
+import QRScan from "@/QRScan.vue";
 
 export default {
   name: "app",
+  components: {
+    QRScan
+  },
   data() {
     return {
+      error: false,
       fuchain: new FUChain(),
       loaded: false,
       activePane: "identity",
@@ -233,8 +248,30 @@ export default {
   },
   mounted() {
     this.loaded = true;
+
+    const loader = this.$loading.show({
+      container: null,
+      loader: "dots",
+      color: "#7367F0"
+    });
+
+    setTimeout(() => {
+      loader.hide();
+    }, 1000);
   },
   methods: {
+    notify(id) {
+      this.fuchain.connection
+        .getTransaction(id)
+        .then(response => (this.activeTransaction = response));
+      this.loadTransactionsForAsset(id);
+      this.setActive("transactions");
+    },
+    handleFail(val) {
+      if (val) {
+        this.error = true;
+      }
+    },
     logout() {
       localStorage.removeItem("seed");
       location.reload();
@@ -274,6 +311,16 @@ export default {
 
     // Menu
     menuClicked(link) {
+      const loader = this.$loading.show({
+        container: null,
+        loader: "dots",
+        color: "#7367F0"
+      });
+
+      setTimeout(() => {
+        loader.hide();
+      }, 500);
+
       switch (link) {
         case "identity":
           this.activePane = "identity";
@@ -287,6 +334,10 @@ export default {
         case "all-assets":
           this.loadAllAssets();
           this.activePane = "all-assets";
+          break;
+
+        case "qrscan":
+          this.activePane = "qrscan";
           break;
       }
     },
