@@ -8,7 +8,7 @@ class FUChain {
   constructor() {
     // Initialise a new connection.
     this.connection = new driver.Connection(
-      "https://testnet.fuchain.fptu.tech/api/v1/"
+      "https://fuchain.fptu.tech/api/v1/"
     );
 
     this.currentIdentity = {
