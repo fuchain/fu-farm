@@ -4,7 +4,7 @@ const bip39 = require("bip39");
 class FUChain {
   constructor() {
     this.connection = new driver.Connection(
-      "https://fuchain.fptu.tech/api/v1/"
+      "https://testnet.fuchain.fptu.tech/api/v1/"
     );
 
     this.currentIdentity = {
